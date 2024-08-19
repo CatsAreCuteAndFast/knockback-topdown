@@ -1,0 +1,84 @@
+[gd_scene load_steps=12 format=3 uid="uid://bakfqh1scbfls"]
+
+[ext_resource type="Texture2D" uid="uid://depaho4mhmk1u" path="res://assets/sprites/characters/Goblin/PNG/spr_idle_strip9.png" id="1_5xdqb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpdt3"]
+atlas = ExtResource("1_5xdqb")
+region = Rect2(0, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6qi1"]
+atlas = ExtResource("1_5xdqb")
+region = Rect2(96, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5xg1"]
+atlas = ExtResource("1_5xdqb")
+region = Rect2(192, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4fcrx"]
+atlas = ExtResource("1_5xdqb")
+region = Rect2(288, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_va7qe"]
+atlas = ExtResource("1_5xdqb")
+region = Rect2(384, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3yc6u"]
+atlas = ExtResource("1_5xdqb")
+region = Rect2(480, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fn4v"]
+atlas = ExtResource("1_5xdqb")
+region = Rect2(576, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tnrov"]
+atlas = ExtResource("1_5xdqb")
+region = Rect2(672, 0, 96, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_md2xy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpdt3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6qi1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d5xg1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4fcrx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_va7qe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3yc6u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0fn4v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tnrov")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bdbdw"]
+radius = 6.0
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 5
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -7)
+sprite_frames = SubResource("SpriteFrames_md2xy")
+autoplay = "default"
+frame_progress = 0.611879
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 5
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_bdbdw")

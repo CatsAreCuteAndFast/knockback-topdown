@@ -11,9 +11,16 @@ config_version=5
 [application]
 
 config/name="First Project"
+run/main_scene="res://scenes/levels/main_level.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
+[physics]
+
+common/physics_interpolation=true
+
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
+environment/defaults/default_clear_color=Color(0.145098, 0.0745098, 0.101961, 1)
