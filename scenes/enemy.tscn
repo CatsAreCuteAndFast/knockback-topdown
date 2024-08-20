@@ -1,0 +1,82 @@
+[gd_scene load_steps=13 format=3 uid="uid://ixitvd27i13b"]
+
+[ext_resource type="Texture2D" uid="uid://ctfkcrd6lryrp" path="res://assets/sprites/characters/Orc/Orc/Orc-Idle.png" id="1_4tke4"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_r8s47"]
+[ext_resource type="Script" path="res://scripts/states/state_machine.gd" id="3_rk7a8"]
+[ext_resource type="Script" path="res://scripts/states/wander.gd" id="4_pkprv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhk6y"]
+atlas = ExtResource("1_4tke4")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6uwei"]
+atlas = ExtResource("1_4tke4")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2jd5"]
+atlas = ExtResource("1_4tke4")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6jgn8"]
+atlas = ExtResource("1_4tke4")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pwia5"]
+atlas = ExtResource("1_4tke4")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_os3qf"]
+atlas = ExtResource("1_4tke4")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oxhh7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhk6y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6uwei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2jd5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6jgn8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pwia5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_os3qf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uh2c4"]
+radius = 7.0
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_r8s47")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -7)
+sprite_frames = SubResource("SpriteFrames_oxhh7")
+autoplay = "default"
+frame = 2
+frame_progress = 0.506392
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -8)
+shape = SubResource("CircleShape2D_uh2c4")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_rk7a8")
+initial_state = NodePath("Wander")
+
+[node name="Wander" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("4_pkprv")
+enemy = NodePath("../..")

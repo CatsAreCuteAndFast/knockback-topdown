@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://bakfqh1scbfls"]
 
 [ext_resource type="Texture2D" uid="uid://depaho4mhmk1u" path="res://assets/sprites/characters/Goblin/PNG/spr_idle_strip9.png" id="1_5xdqb"]
-[ext_resource type="Script" path="res://scenes/player.gd" id="1_7ktty"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_7ktty"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gpdt3"]
 atlas = ExtResource("1_5xdqb")
@@ -72,6 +72,7 @@ radius = 6.0
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
+collision_layer = 2
 script = ExtResource("1_7ktty")
 accel = 20.0
 
