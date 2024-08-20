@@ -14,9 +14,5 @@ var raycast_array : Array
 func _ready() -> void:
 	raycast_array = [topright, topleft, bottomright, bottomleft, left, right, top, bottom]
 
-func _process(delta: float) -> void:
-	if top.is_colliding():
-		print("hi")
-
 func _physics_process(delta: float) -> void:
 	move_and_slide()
