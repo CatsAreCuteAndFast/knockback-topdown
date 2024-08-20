@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://ixitvd27i13b"]
+[gd_scene load_steps=14 format=3 uid="uid://ixitvd27i13b"]
 
 [ext_resource type="Texture2D" uid="uid://ctfkcrd6lryrp" path="res://assets/sprites/characters/Orc/Orc/Orc-Idle.png" id="1_4tke4"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_r8s47"]
 [ext_resource type="Script" path="res://scripts/states/state_machine.gd" id="3_rk7a8"]
 [ext_resource type="Script" path="res://scripts/states/wander.gd" id="4_pkprv"]
+[ext_resource type="Script" path="res://scripts/states/follow.gd" id="5_e73rp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jhk6y"]
 atlas = ExtResource("1_4tke4")
@@ -63,7 +64,7 @@ collision_layer = 2
 script = ExtResource("1_r8s47")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -7)
+position = Vector2(-1, -7)
 sprite_frames = SubResource("SpriteFrames_oxhh7")
 autoplay = "default"
 frame = 2
@@ -75,8 +76,41 @@ shape = SubResource("CircleShape2D_uh2c4")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_rk7a8")
-initial_state = NodePath("Wander")
+initial_state = NodePath("Follow")
 
 [node name="Wander" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("4_pkprv")
 enemy = NodePath("../..")
+detection_radius = 75.0
+
+[node name="Follow" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("5_e73rp")
+enemy = NodePath("../..")
+detection_radius = 100.0
+
+[node name="8DirectionalRaycasts" type="Node2D" parent="."]
+position = Vector2(0, -7)
+
+[node name="topright" type="RayCast2D" parent="8DirectionalRaycasts"]
+target_position = Vector2(30, -30)
+
+[node name="topleft" type="RayCast2D" parent="8DirectionalRaycasts"]
+target_position = Vector2(-30, -30)
+
+[node name="bottomleft" type="RayCast2D" parent="8DirectionalRaycasts"]
+target_position = Vector2(-30, 30)
+
+[node name="bottomright" type="RayCast2D" parent="8DirectionalRaycasts"]
+target_position = Vector2(30, 30)
+
+[node name="bottom" type="RayCast2D" parent="8DirectionalRaycasts"]
+target_position = Vector2(0, 40)
+
+[node name="top" type="RayCast2D" parent="8DirectionalRaycasts"]
+target_position = Vector2(0, -40)
+
+[node name="left" type="RayCast2D" parent="8DirectionalRaycasts"]
+target_position = Vector2(-40, 0)
+
+[node name="right" type="RayCast2D" parent="8DirectionalRaycasts"]
+target_position = Vector2(40, 0)
