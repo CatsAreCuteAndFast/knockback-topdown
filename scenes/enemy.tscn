@@ -1,10 +1,37 @@
-[gd_scene load_steps=14 format=3 uid="uid://ixitvd27i13b"]
+[gd_scene load_steps=39 format=3 uid="uid://ixitvd27i13b"]
 
 [ext_resource type="Texture2D" uid="uid://ctfkcrd6lryrp" path="res://assets/sprites/characters/Orc/Orc/Orc-Idle.png" id="1_4tke4"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_r8s47"]
+[ext_resource type="Texture2D" uid="uid://chaw1nxwnqrnv" path="res://assets/sprites/characters/Orc/Orc/Orc-Attack01.png" id="2_hplfa"]
 [ext_resource type="Script" path="res://scripts/states/state_machine.gd" id="3_rk7a8"]
+[ext_resource type="Texture2D" uid="uid://vv6375cm0uxw" path="res://assets/sprites/characters/Orc/Orc/Orc-Walk.png" id="4_2aars"]
 [ext_resource type="Script" path="res://scripts/states/wander.gd" id="4_pkprv"]
 [ext_resource type="Script" path="res://scripts/states/follow.gd" id="5_e73rp"]
+[ext_resource type="Script" path="res://scripts/states/attack.gd" id="6_r5j6w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ja8k4"]
+atlas = ExtResource("2_hplfa")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frul8"]
+atlas = ExtResource("2_hplfa")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2irp"]
+atlas = ExtResource("2_hplfa")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wru57"]
+atlas = ExtResource("2_hplfa")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvx0v"]
+atlas = ExtResource("2_hplfa")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjpye"]
+atlas = ExtResource("2_hplfa")
+region = Rect2(500, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jhk6y"]
 atlas = ExtResource("1_4tke4")
@@ -30,8 +57,95 @@ region = Rect2(400, 0, 100, 100)
 atlas = ExtResource("1_4tke4")
 region = Rect2(500, 0, 100, 100)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_br5be"]
+atlas = ExtResource("4_2aars")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bu5o"]
+atlas = ExtResource("4_2aars")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0isem"]
+atlas = ExtResource("4_2aars")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vcay"]
+atlas = ExtResource("4_2aars")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_le5vw"]
+atlas = ExtResource("4_2aars")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tr4jy"]
+atlas = ExtResource("4_2aars")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6v5sb"]
+atlas = ExtResource("4_2aars")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8aty"]
+atlas = ExtResource("4_2aars")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1luuy"]
+atlas = ExtResource("4_2aars")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgykv"]
+atlas = ExtResource("4_2aars")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gquis"]
+atlas = ExtResource("4_2aars")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ips7u"]
+atlas = ExtResource("4_2aars")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3ymm"]
+atlas = ExtResource("4_2aars")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4ppg"]
+atlas = ExtResource("4_2aars")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_atvpd"]
+atlas = ExtResource("4_2aars")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dll1o"]
+atlas = ExtResource("4_2aars")
+region = Rect2(700, 0, 100, 100)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_oxhh7"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ja8k4")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_frul8")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_s2irp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wru57")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvx0v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjpye")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jhk6y")
@@ -52,8 +166,66 @@ animations = [{
 "texture": SubResource("AtlasTexture_os3qf")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_br5be")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bu5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0isem")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vcay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_le5vw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tr4jy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6v5sb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8aty")
+}],
+"loop": true,
+"name": &"run",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1luuy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgykv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gquis")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ips7u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3ymm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4ppg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_atvpd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dll1o")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uh2c4"]
@@ -68,9 +240,8 @@ script = ExtResource("1_r8s47")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -7)
 sprite_frames = SubResource("SpriteFrames_oxhh7")
-autoplay = "default"
-frame = 2
-frame_progress = 0.506392
+animation = &"attack"
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -8)
@@ -80,16 +251,33 @@ shape = SubResource("CircleShape2D_uh2c4")
 script = ExtResource("3_rk7a8")
 initial_state = NodePath("Follow")
 
-[node name="Wander" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+[node name="Wander" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy")]
 script = ExtResource("4_pkprv")
+animated_sprite = NodePath("../../AnimatedSprite2D")
 enemy = NodePath("../..")
 detection_radius = 75.0
 
-[node name="Follow" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "navigation_agent")]
+[node name="Follow" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy", "navigation_agent")]
 script = ExtResource("5_e73rp")
+animated_sprite = NodePath("../../AnimatedSprite2D")
 enemy = NodePath("../..")
 navigation_agent = NodePath("../../NavigationAgent2D")
 detection_radius = 100.0
+attack_radius = 20.0
+
+[node name="Timer" type="Timer" parent="StateMachine/Follow"]
+wait_time = 0.1
+autostart = true
+
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy")]
+script = ExtResource("6_r5j6w")
+animated_sprite = NodePath("../../AnimatedSprite2D")
+enemy = NodePath("../..")
+attack_cancel_radius = 30.0
+
+[node name="Timer" type="Timer" parent="StateMachine/Attack"]
+wait_time = 0.5
+one_shot = true
 
 [node name="8DirectionalRaycasts" type="Node2D" parent="."]
 position = Vector2(0, -7)
@@ -121,8 +309,5 @@ target_position = Vector2(40, 0)
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 radius = 134.0
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.1
-autostart = true
-
-[connection signal="timeout" from="Timer" to="StateMachine/Follow" method="_on_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Follow/Timer" to="StateMachine/Follow" method="_on_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Attack/Timer" to="StateMachine/Attack" method="_on_timer_timeout"]

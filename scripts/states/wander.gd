@@ -1,6 +1,7 @@
 extends State
 class_name Wander
 
+@export var animated_sprite : AnimatedSprite2D
 @export var enemy : CharacterBody2D
 @export var moveSpeed := 10
 @export var detection_radius := 200.0
@@ -16,6 +17,7 @@ func randomize_wander():
 func Enter():
 	player = get_tree().get_first_node_in_group("player")
 	randomize_wander()
+	animated_sprite.play("walk")
 	
 func Update(delta : float):
 	if wander_time > 0:

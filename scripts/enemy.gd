@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
 @onready var topright: RayCast2D = $"8DirectionalRaycasts/topright"
 @onready var topleft: RayCast2D = $"8DirectionalRaycasts/topleft"
 @onready var bottomleft: RayCast2D = $"8DirectionalRaycasts/bottomleft"
@@ -15,4 +17,8 @@ func _ready() -> void:
 	raycast_array = [topright, topleft, bottomright, bottomleft, left, right, top, bottom]
 
 func _physics_process(delta: float) -> void:
+	if velocity.x > 0:
+		animated_sprite.flip_h = false
+	elif velocity.x < 0:
+		animated_sprite.flip_h = true
 	move_and_slide()
