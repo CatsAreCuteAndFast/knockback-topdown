@@ -7,8 +7,8 @@ class_name Attack
 @export var animated_sprite: AnimatedSprite2D
 @export var enemy: CharacterBody2D
 @export var move_speed := 50.0
-@export var attack_cancel_radius := 200.0
-@export var max_attack_distance := 30.0
+@export var attack_cancel_radius := 30.0
+@export var max_attack_distance := 20.0
 
 var player: Node2D
 
@@ -34,8 +34,6 @@ func Exit():
 	killzone.visible = false
 
 func _on_animation_finished():
-	killzone.monitoring = false
-	killzone.visible = false
 	timer.start()
 
 func _on_timer_timeout() -> void:
@@ -72,5 +70,8 @@ func _on_frame_changed():
 				killzone.visible = true
 			4:
 				killzone.monitoring = true
+			5:
+				killzone.monitoring = false
+				killzone.visible = false
 			
 		

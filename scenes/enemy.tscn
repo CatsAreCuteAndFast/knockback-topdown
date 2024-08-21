@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://ixitvd27i13b"]
+[gd_scene load_steps=44 format=3 uid="uid://ixitvd27i13b"]
 
 [ext_resource type="Texture2D" uid="uid://ctfkcrd6lryrp" path="res://assets/sprites/characters/Orc/Orc/Orc-Idle.png" id="1_4tke4"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_r8s47"]
@@ -248,6 +248,9 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 metadata/_snap_enabled = true
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_utkf4"]
+radius = 1.0
+
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 2
 motion_mode = 1
@@ -292,7 +295,6 @@ autostart = true
 script = ExtResource("6_r5j6w")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 enemy = NodePath("../..")
-attack_cancel_radius = 30.0
 
 [node name="Timer" type="Timer" parent="StateMachine/Attack"]
 wait_time = 0.3
@@ -339,6 +341,12 @@ target_position = Vector2(40, 0)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 radius = 134.0
+
+[node name="Killzone" parent="." instance=ExtResource("9_kg03p")]
+position = Vector2(1, -7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+shape = SubResource("CircleShape2D_utkf4")
 
 [connection signal="timeout" from="StateMachine/Follow/Timer" to="StateMachine/Follow" method="_on_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Attack/Timer" to="StateMachine/Attack" method="_on_timer_timeout"]
