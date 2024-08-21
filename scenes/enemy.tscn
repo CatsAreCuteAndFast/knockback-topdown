@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://ixitvd27i13b"]
+[gd_scene load_steps=43 format=3 uid="uid://ixitvd27i13b"]
 
 [ext_resource type="Texture2D" uid="uid://ctfkcrd6lryrp" path="res://assets/sprites/characters/Orc/Orc/Orc-Idle.png" id="1_4tke4"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_r8s47"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/states/wander.gd" id="4_pkprv"]
 [ext_resource type="Script" path="res://scripts/states/follow.gd" id="5_e73rp"]
 [ext_resource type="Script" path="res://scripts/states/attack.gd" id="6_r5j6w"]
+[ext_resource type="PackedScene" uid="uid://d1g84itw7cing" path="res://scenes/killzone.tscn" id="9_kg03p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ja8k4"]
 atlas = ExtResource("2_hplfa")
@@ -231,6 +232,22 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_uh2c4"]
 radius = 7.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_tm8no"]
+radius = 14.0
+
+[sub_resource type="Gradient" id="Gradient_g57mm"]
+offsets = PackedFloat32Array(0, 0.824675, 1)
+colors = PackedColorArray(1, 0.0431373, 0.301961, 1, 1, 0.192157, 0, 0.537255, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kxt27"]
+gradient = SubResource("Gradient_g57mm")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 2
 motion_mode = 1
@@ -242,6 +259,8 @@ position = Vector2(-1, -7)
 sprite_frames = SubResource("SpriteFrames_oxhh7")
 animation = &"attack"
 autoplay = "idle"
+frame = 5
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -8)
@@ -276,8 +295,20 @@ enemy = NodePath("../..")
 attack_cancel_radius = 30.0
 
 [node name="Timer" type="Timer" parent="StateMachine/Attack"]
-wait_time = 0.5
+wait_time = 0.3
 one_shot = true
+
+[node name="Killzone" parent="StateMachine/Attack" instance=ExtResource("9_kg03p")]
+visible = false
+collision_layer = 1
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StateMachine/Attack/Killzone"]
+shape = SubResource("CircleShape2D_tm8no")
+
+[node name="Sprite2D" type="Sprite2D" parent="StateMachine/Attack/Killzone"]
+scale = Vector2(0.164063, 0.164063)
+texture = SubResource("GradientTexture2D_kxt27")
 
 [node name="8DirectionalRaycasts" type="Node2D" parent="."]
 position = Vector2(0, -7)
