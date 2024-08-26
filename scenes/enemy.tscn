@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://ixitvd27i13b"]
+[gd_scene load_steps=45 format=3 uid="uid://ixitvd27i13b"]
 
 [ext_resource type="Texture2D" uid="uid://ctfkcrd6lryrp" path="res://assets/sprites/characters/Orc/Orc/Orc-Idle.png" id="1_4tke4"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_r8s47"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/states/follow.gd" id="5_e73rp"]
 [ext_resource type="Script" path="res://scripts/states/attack.gd" id="6_r5j6w"]
 [ext_resource type="PackedScene" uid="uid://d1g84itw7cing" path="res://scenes/killzone.tscn" id="9_kg03p"]
+[ext_resource type="Script" path="res://scripts/health.gd" id="10_3f05u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ja8k4"]
 atlas = ExtResource("2_hplfa")
@@ -235,12 +236,12 @@ radius = 7.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_tm8no"]
 radius = 14.0
 
-[sub_resource type="Gradient" id="Gradient_g57mm"]
+[sub_resource type="Gradient" id="Gradient_6tgmc"]
 offsets = PackedFloat32Array(0, 0.824675, 1)
 colors = PackedColorArray(1, 0.0431373, 0.301961, 1, 1, 0.192157, 0, 0.537255, 1, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_kxt27"]
-gradient = SubResource("Gradient_g57mm")
+gradient = SubResource("Gradient_6tgmc")
 width = 256
 height = 256
 fill = 1
@@ -252,6 +253,7 @@ metadata/_snap_enabled = true
 radius = 1.0
 
 [node name="Enemy" type="CharacterBody2D"]
+z_index = 5
 collision_layer = 2
 motion_mode = 1
 wall_min_slide_angle = 0.0
@@ -277,15 +279,13 @@ initial_state = NodePath("Follow")
 script = ExtResource("4_pkprv")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 enemy = NodePath("../..")
-detection_radius = 75.0
+detection_radius = 100.0
 
 [node name="Follow" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy", "navigation_agent")]
 script = ExtResource("5_e73rp")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 enemy = NodePath("../..")
 navigation_agent = NodePath("../../NavigationAgent2D")
-detection_radius = 100.0
-attack_radius = 20.0
 
 [node name="Timer" type="Timer" parent="StateMachine/Follow"]
 wait_time = 0.1
@@ -347,6 +347,9 @@ position = Vector2(1, -7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("CircleShape2D_utkf4")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("10_3f05u")
 
 [connection signal="timeout" from="StateMachine/Follow/Timer" to="StateMachine/Follow" method="_on_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Attack/Timer" to="StateMachine/Attack" method="_on_timer_timeout"]

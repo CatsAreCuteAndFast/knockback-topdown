@@ -16,7 +16,7 @@ tile_map_data = PackedByteArray("AAAKAAIAAAABAAQAAAAKAAEAAAAIAAEAAAAKAAAAAAAIAAA
 tile_set = ExtResource("1_p5brc")
 
 [node name="Player" parent="." instance=ExtResource("2_xiv20")]
-position = Vector2(85, 15)
+position = Vector2(138, 11)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(1, -8)
@@ -24,5 +24,10 @@ zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 
 [node name="Enemy" parent="." instance=ExtResource("3_7k03i")]
-z_index = 5
-position = Vector2(182, 10)
+position = Vector2(51, 53)
+
+[node name="Enemy2" parent="." instance=ExtResource("3_7k03i")]
+position = Vector2(51, 54)
+
+[node name="Enemy3" parent="." instance=ExtResource("3_7k03i")]
+position = Vector2(51, 53)

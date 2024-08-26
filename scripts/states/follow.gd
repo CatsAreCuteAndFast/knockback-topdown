@@ -5,8 +5,8 @@ class_name Follow
 @export var enemy: CharacterBody2D
 @export var navigation_agent : NavigationAgent2D
 @export var move_speed := 50.0
-@export var detection_radius := 200.0
-@export var attack_radius := 50.0
+@export var detection_radius := 100.0
+@export var attack_radius := 20.0
 
 var player: Node2D
 
