@@ -29,4 +29,5 @@ texture = ExtResource("2_8f6lv")
 position = Vector2(0, 1)
 scale = Vector2(4.1, 2.3)
 
+[connection signal="DamageDealt" from="Killzone" to="." method="_on_killzone_damage_dealt"]
 [connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]

@@ -34,6 +34,7 @@ func PhysicsUpdate(_delta: float):
 func Exit():
 	killzone.monitoring = false
 	killzone.visible = false
+	timer.stop()
 
 func _on_animation_finished():
 	timer.start()

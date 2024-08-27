@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bakfqh1scbfls"]
+[gd_scene load_steps=39 format=3 uid="uid://bakfqh1scbfls"]
 
 [ext_resource type="Texture2D" uid="uid://depaho4mhmk1u" path="res://assets/sprites/characters/Goblin/PNG/spr_idle_strip9.png" id="1_5xdqb"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_7ktty"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://scripts/states/player_states/idle.gd" id="8_7y0h3"]
 [ext_resource type="Script" path="res://scripts/states/death.gd" id="8_uijcg"]
 [ext_resource type="Script" path="res://scripts/states/player_states/walk.gd" id="10_so1cx"]
+[ext_resource type="Script" path="res://scripts/states/bow_attack.gd" id="12_3l86e"]
+[ext_resource type="PackedScene" uid="uid://dawvk43i148p3" path="res://scenes/arrow.tscn" id="13_0rxdf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rjqi6"]
 atlas = ExtResource("3_4y7ti")
@@ -106,6 +108,11 @@ region = Rect2(672, 0, 96, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_md2xy"]
 animations = [{
+"frames": [],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.5,
 "texture": SubResource("AtlasTexture_rjqi6")
@@ -208,8 +215,6 @@ position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_md2xy")
 animation = &"walk"
 autoplay = "idle"
-frame = 3
-frame_progress = 0.732486
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 5
@@ -233,9 +238,8 @@ health_script = NodePath("../../Health")
 script = ExtResource("7_pn01r")
 initial_state = NodePath("PlayerWalk")
 
-[node name="PlayerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("character_body", "animated_sprite")]
+[node name="PlayerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite")]
 script = ExtResource("8_7y0h3")
-character_body = NodePath("../..")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="Death" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent_node", "animated_sprite")]
@@ -244,12 +248,19 @@ reset_scene = true
 parent_node = NodePath("../..")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="PlayerWalk" type="Node" parent="StateMachine" node_paths=PackedStringArray("character_body", "animated_sprite")]
+[node name="PlayerWalk" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite")]
 script = ExtResource("10_so1cx")
-character_body = NodePath("../..")
 animated_sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="BigBowAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("marker")]
+script = ExtResource("12_3l86e")
+marker = NodePath("../../Marker2D")
+arrow = ExtResource("13_0rxdf")
+_target_player = false
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, -8)
+rotation = -1.57079
 
 [connection signal="health_changed" from="Health" to="CanvasLayer/Control" method="_on_health_changed"]
 [connection signal="on_death" from="Health" to="." method="_on_health_on_death"]
-[connection signal="on_death" from="Health" to="StateMachine/PlayerIdle" method="_on_health_on_death"]
-[connection signal="on_death" from="Health" to="StateMachine/PlayerWalk" method="_on_health_on_death"]
