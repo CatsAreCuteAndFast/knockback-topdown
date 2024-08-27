@@ -6,7 +6,11 @@ extends CharacterBody2D
 @export var accel: float = 10
 @export var animated_sprite : AnimatedSprite2D
 
+var original_speed : float
 var dead = false
+
+func _ready() -> void:
+	original_speed = speed
 
 func _process(_delta: float) -> void:
 	if velocity.x > 0:
@@ -15,8 +19,10 @@ func _process(_delta: float) -> void:
 		animated_sprite.flip_h = true
 		
 	if not dead:
+		speed = original_speed
 		if Input.is_action_pressed("left_click"):
 			state_machine.change_state("BigBowAttack")
+			speed = original_speed / 3
 		elif velocity.x != 0 or velocity.y != 0:
 			state_machine.change_state("PlayerWalk")
 		elif velocity.x == 0 and velocity.y == 0:

@@ -222,6 +222,7 @@ position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_bdbdw")
 
 [node name="Health" parent="." instance=ExtResource("5_33ota")]
+immunity_frame_duration = 1.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

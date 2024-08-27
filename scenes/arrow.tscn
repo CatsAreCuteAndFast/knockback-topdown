@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://d1g84itw7cing" path="res://scenes/killzone.tscn" id="1_3lwit"]
 [ext_resource type="Script" path="res://scripts/arrow.gd" id="1_t8m80"]
-[ext_resource type="Texture2D" uid="uid://b437fhad15p45" path="res://assets/sprites/items and trap_animation/arrow/Just_arrow.png" id="2_8f6lv"]
+[ext_resource type="Texture2D" uid="uid://k3rko6ixkvnv" path="res://assets/sprites/characters/Soldier/Arrow(projectile)/Arrow01(32x32).png" id="3_yata2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7y03n"]
 radius = 5.5
@@ -11,6 +11,7 @@ height = 14.0
 [node name="Arrow" type="Node2D"]
 z_index = 10
 script = ExtResource("1_t8m80")
+speed = 150.0
 
 [node name="Killzone" parent="." instance=ExtResource("1_3lwit")]
 position = Vector2(-16, 1)
@@ -22,12 +23,6 @@ rotation = -1.5708
 shape = SubResource("CapsuleShape2D_7y03n")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = -1.5708
-texture = ExtResource("2_8f6lv")
-
-[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
-position = Vector2(0, 1)
-scale = Vector2(4.1, 2.3)
+texture = ExtResource("3_yata2")
 
 [connection signal="DamageDealt" from="Killzone" to="." method="_on_killzone_damage_dealt"]
-[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]

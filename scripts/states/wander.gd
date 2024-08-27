@@ -28,6 +28,9 @@ func Update(delta : float):
 	if detection_radius >= distance_to_player:
 		Transitioned.emit(self, "Follow")
 		
-func PhysicsUpdate(_delta : float):
+func PhysicsUpdate(delta : float):
 	if enemy:
 		enemy.velocity = move_direction * moveSpeed
+		
+func Exit():
+	enemy.velocity = Vector2.ZERO

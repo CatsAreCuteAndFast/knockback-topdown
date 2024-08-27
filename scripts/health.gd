@@ -4,7 +4,7 @@ class_name Health
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var max_health = 3
-@export var immunity_frame_duration = 1.0
+@export var immunity_frame_duration = 0.0
 
 var last_hit_time : float
 var _is_dead = false
