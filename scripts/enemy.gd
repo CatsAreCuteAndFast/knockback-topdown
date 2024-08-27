@@ -16,7 +16,7 @@ var raycast_array : Array
 func _ready() -> void:
 	raycast_array = [topright, topleft, bottomright, bottomleft, left, right, top, bottom]
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if velocity.x > 0:
 		animated_sprite.flip_h = false
 	elif velocity.x < 0:

@@ -3,10 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://depaho4mhmk1u" path="res://assets/sprites/characters/Goblin/PNG/spr_idle_strip9.png" id="1_5xdqb"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_7ktty"]
 [ext_resource type="Texture2D" uid="uid://d4mwxfbxooyyw" path="res://assets/sprites/characters/Goblin/PNG/spr_death_strip13.png" id="3_4y7ti"]
-[ext_resource type="Script" path="res://scripts/health.gd" id="3_x7hrl"]
 [ext_resource type="Script" path="res://scripts/heart_rendering.gd" id="4_2lric"]
 [ext_resource type="Texture2D" uid="uid://cndjw2ec7q8tq" path="res://assets/sprites/characters/Goblin/PNG/spr_run_strip8.png" id="4_i70v2"]
 [ext_resource type="PackedScene" uid="uid://cu3ysa60mvruu" path="res://scenes/heart.tscn" id="5_1t88h"]
+[ext_resource type="PackedScene" uid="uid://5k86ltesxpd2" path="res://scenes/health.tscn" id="5_33ota"]
 [ext_resource type="Script" path="res://scripts/states/state_machine.gd" id="7_pn01r"]
 [ext_resource type="Script" path="res://scripts/states/player_states/idle.gd" id="8_7y0h3"]
 [ext_resource type="Script" path="res://scripts/states/death.gd" id="8_uijcg"]
@@ -216,8 +216,7 @@ z_index = 5
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_bdbdw")
 
-[node name="Health" type="Node" parent="."]
-script = ExtResource("3_x7hrl")
+[node name="Health" parent="." instance=ExtResource("5_33ota")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

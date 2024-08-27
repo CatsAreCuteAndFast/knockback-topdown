@@ -15,10 +15,9 @@ func makepath():
 
 func Enter():
 	player = get_tree().get_first_node_in_group("player")
-	makepath()
 	animated_sprite.play("run")
 
-func PhysicsUpdate(delta: float):
+func PhysicsUpdate(_delta: float):
 	var direction = enemy.to_local(navigation_agent.get_next_path_position()).normalized()
 	enemy.velocity = direction * move_speed
 	

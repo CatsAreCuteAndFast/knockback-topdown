@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://scripts/states/follow.gd" id="5_e73rp"]
 [ext_resource type="Script" path="res://scripts/states/attack.gd" id="6_r5j6w"]
 [ext_resource type="PackedScene" uid="uid://d1g84itw7cing" path="res://scenes/killzone.tscn" id="9_kg03p"]
-[ext_resource type="Script" path="res://scripts/health.gd" id="10_3f05u"]
+[ext_resource type="PackedScene" uid="uid://5k86ltesxpd2" path="res://scenes/health.tscn" id="10_34c8u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ja8k4"]
 atlas = ExtResource("2_hplfa")
@@ -348,8 +348,8 @@ position = Vector2(1, -7)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("CircleShape2D_utkf4")
 
-[node name="Health" type="Node" parent="."]
-script = ExtResource("10_3f05u")
+[node name="Health" parent="." instance=ExtResource("10_34c8u")]
+max_health = 1
 
 [connection signal="timeout" from="StateMachine/Follow/Timer" to="StateMachine/Follow" method="_on_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Attack/Timer" to="StateMachine/Attack" method="_on_timer_timeout"]

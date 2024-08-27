@@ -7,7 +7,7 @@ class_name PlayerIdle
 func Enter():
 	animated_sprite.play("idle")
 	
-func Update(delta):
+func Update(_delta):
 	if character_body.velocity.x != 0 or character_body.velocity.y != 0:
 		Transitioned.emit(self, "PlayerWalk")
 

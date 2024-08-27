@@ -16,17 +16,19 @@ var always_attack := true
 
 signal AttackFinished
 
-func Enter():
+func _ready() -> void:
 	animated_sprite.frame_changed.connect(_on_frame_changed)
+	animated_sprite.animation_finished.connect(_on_animation_finished)
+	AttackFinished.connect(_on_attack_finished)
+
+func Enter():
 	player = get_tree().get_first_node_in_group("player")
 	timer.start()
 	animated_sprite.play("attack")
 	animated_sprite.stop()
-	animated_sprite.animation_finished.connect(_on_animation_finished)
-	AttackFinished.connect(_on_attack_finished)
 	always_attack = true
 
-func PhysicsUpdate(delta: float):
+func PhysicsUpdate(_delta: float):
 	pass
 
 func Exit():
