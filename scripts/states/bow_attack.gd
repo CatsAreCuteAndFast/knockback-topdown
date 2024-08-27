@@ -12,16 +12,14 @@ class_name BowAttack
 
 var current_time : float
 var _shot_fired = false
-var time_after_shot : float
 
 func _ready() -> void:
 	set_process_priority(-100)
 	
-func _process(delta: float) -> void:
-	if _shot_fired:
-		time_after_shot += delta
-		if time_after_shot > wait_after_shot:
-			Transitioned.emit(self, "idle")
+func _on_shot_fired():
+	await get_tree().create_timer(wait_after_shot).timeout
+	Transitioned.emit(self, "idle")
+	_shot_fired = false
 
 func Enter():
 	animated_sprite.play("load")
@@ -39,18 +37,20 @@ func Update(delta):
 	
 
 func Exit():
-	_shot_fired = true
-	var arrow_instance = arrow.instantiate()
-	arrow_instance.rotation = marker.rotation
-	arrow_instance.global_position = marker.global_position
-	var original_range = arrow_instance.range
-	arrow_instance.range = lerp(minimum_range, maximum_range, current_time)
-	arrow_instance.speed *= arrow_instance.range / original_range
-	add_child(arrow_instance)
-	
-	var killzone = arrow_instance.get_node("Killzone")
-	if _target_player:
-		killzone._target_only_player = true
-	else:
-		killzone._target_only_player = false
+	if not _shot_fired:
+		_on_shot_fired()
+		_shot_fired = true
+		var arrow_instance = arrow.instantiate()
+		arrow_instance.rotation = marker.rotation
+		arrow_instance.global_position = marker.global_position
+		var original_range = arrow_instance.range
+		arrow_instance.range = lerp(minimum_range, maximum_range, current_time)
+		arrow_instance.speed *= arrow_instance.range / original_range
+		add_child(arrow_instance)
+		
+		var killzone = arrow_instance.get_node("Killzone")
+		if _target_player:
+			killzone._target_only_player = true
+		else:
+			killzone._target_only_player = false
 	current_time = 0
