@@ -1,7 +1,7 @@
-[gd_scene load_steps=51 format=3 uid="uid://ixitvd27i13b"]
+[gd_scene load_steps=54 format=3 uid="uid://ixitvd27i13b"]
 
 [ext_resource type="Texture2D" uid="uid://ctfkcrd6lryrp" path="res://assets/sprites/characters/Orc/Orc/Orc-Idle.png" id="1_4tke4"]
-[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_r8s47"]
+[ext_resource type="Script" path="res://scripts/melee_enemy.gd" id="1_r8s47"]
 [ext_resource type="Texture2D" uid="uid://chaw1nxwnqrnv" path="res://assets/sprites/characters/Orc/Orc/Orc-Attack01.png" id="2_hplfa"]
 [ext_resource type="Texture2D" uid="uid://8qbcn1yg8ghw" path="res://assets/sprites/characters/Orc/Orc/Orc-Death.png" id="3_5aj7f"]
 [ext_resource type="Script" path="res://scripts/states/state_machine.gd" id="3_rk7a8"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://d1g84itw7cing" path="res://scenes/killzone.tscn" id="9_kg03p"]
 [ext_resource type="PackedScene" uid="uid://5k86ltesxpd2" path="res://scenes/health.tscn" id="10_34c8u"]
 [ext_resource type="Script" path="res://scripts/states/death.gd" id="11_t2yfn"]
+[ext_resource type="Script" path="res://scripts/shield.gd" id="13_jh2c2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ja8k4"]
 atlas = ExtResource("2_hplfa")
@@ -287,7 +288,19 @@ metadata/_snap_enabled = true
 [sub_resource type="CircleShape2D" id="CircleShape2D_utkf4"]
 radius = 1.0
 
-[node name="Enemy" type="CharacterBody2D"]
+[sub_resource type="Gradient" id="Gradient_g12of"]
+colors = PackedColorArray(0, 0, 1, 0.392157, 0, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wxjgt"]
+gradient = SubResource("Gradient_g12of")
+width = 40
+height = 40
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
+[node name="MeleeEnemy" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 2
 motion_mode = 1
@@ -295,7 +308,7 @@ wall_min_slide_angle = 0.0
 script = ExtResource("1_r8s47")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-1, -7)
+position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_oxhh7")
 animation = &"attack"
 autoplay = "idle"
@@ -361,6 +374,17 @@ shape = SubResource("CircleShape2D_utkf4")
 
 [node name="Health" parent="." instance=ExtResource("10_34c8u")]
 
+[node name="Shield" type="Node2D" parent="." node_paths=PackedStringArray("health_script", "shield_sprite")]
+script = ExtResource("13_jh2c2")
+regen_shield_timer = 3.0
+health_script = NodePath("../Health")
+shield_sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="Shield"]
+position = Vector2(0, -7)
+texture = SubResource("GradientTexture2D_wxjgt")
+
 [connection signal="timeout" from="StateMachine/Follow/Timer" to="StateMachine/Follow" method="_on_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Attack/Timer" to="StateMachine/Attack" method="_on_timer_timeout"]
 [connection signal="on_death" from="Health" to="." method="_on_health_on_death"]
+[connection signal="on_death" from="Health" to="Shield" method="_on_health_on_death"]

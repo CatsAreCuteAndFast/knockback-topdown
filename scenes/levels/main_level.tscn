@@ -2,7 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://bqr1tm8yw2p4" path="res://tilesets/dungeon_tileset.tres" id="1_p5brc"]
 [ext_resource type="PackedScene" uid="uid://bakfqh1scbfls" path="res://scenes/player.tscn" id="2_xiv20"]
-[ext_resource type="PackedScene" uid="uid://ixitvd27i13b" path="res://scenes/enemy.tscn" id="3_7k03i"]
+[ext_resource type="PackedScene" uid="uid://ixitvd27i13b" path="res://scenes/melee_enemy.tscn" id="3_7k03i"]
 
 [node name="MainLevel" type="Node2D"]
 y_sort_enabled = true
@@ -26,5 +26,5 @@ position_smoothing_enabled = true
 
 [node name="Enemies" type="Node" parent="."]
 
-[node name="Enemy" parent="Enemies" instance=ExtResource("3_7k03i")]
-position = Vector2(51, 53)
+[node name="MeleeEnemy" parent="Enemies" instance=ExtResource("3_7k03i")]
+position = Vector2(60, 0)

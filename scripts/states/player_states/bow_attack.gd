@@ -1,5 +1,5 @@
 extends State
-class_name BowAttack
+class_name PlayerBowAttack
 
 @export var marker : Marker2D
 @export var arrow : PackedScene

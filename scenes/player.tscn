@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://scripts/states/player_states/idle.gd" id="8_7y0h3"]
 [ext_resource type="Script" path="res://scripts/states/death.gd" id="8_uijcg"]
 [ext_resource type="Script" path="res://scripts/states/player_states/walk.gd" id="10_so1cx"]
-[ext_resource type="Script" path="res://scripts/states/bow_attack.gd" id="12_3l86e"]
+[ext_resource type="Script" path="res://scripts/states/player_states/bow_attack.gd" id="12_3l86e"]
 [ext_resource type="PackedScene" uid="uid://dawvk43i148p3" path="res://scenes/arrow.tscn" id="13_0rxdf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pknpq"]
@@ -239,7 +239,6 @@ radius = 6.0
 z_index = 5
 collision_layer = 2
 motion_mode = 1
-wall_min_slide_angle = 0.0
 script = ExtResource("1_7ktty")
 accel = 20.0
 animated_sprite = NodePath("AnimatedSprite2D")
