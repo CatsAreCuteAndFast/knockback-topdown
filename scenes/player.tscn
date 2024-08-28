@@ -293,6 +293,7 @@ script = ExtResource("12_3l86e")
 marker = NodePath("../../Marker2D")
 arrow = ExtResource("13_0rxdf")
 _target_player = false
+maximum_range = 160
 animated_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="Marker2D" type="Marker2D" parent="."]

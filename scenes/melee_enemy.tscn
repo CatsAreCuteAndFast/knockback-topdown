@@ -1,7 +1,7 @@
 [gd_scene load_steps=54 format=3 uid="uid://ixitvd27i13b"]
 
 [ext_resource type="Texture2D" uid="uid://ctfkcrd6lryrp" path="res://assets/sprites/characters/Orc/Orc/Orc-Idle.png" id="1_4tke4"]
-[ext_resource type="Script" path="res://scripts/melee_enemy.gd" id="1_r8s47"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_r8s47"]
 [ext_resource type="Texture2D" uid="uid://chaw1nxwnqrnv" path="res://assets/sprites/characters/Orc/Orc/Orc-Attack01.png" id="2_hplfa"]
 [ext_resource type="Texture2D" uid="uid://8qbcn1yg8ghw" path="res://assets/sprites/characters/Orc/Orc/Orc-Death.png" id="3_5aj7f"]
 [ext_resource type="Script" path="res://scripts/states/state_machine.gd" id="3_rk7a8"]
@@ -272,12 +272,12 @@ radius = 7.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_tm8no"]
 radius = 14.0
 
-[sub_resource type="Gradient" id="Gradient_6tgmc"]
+[sub_resource type="Gradient" id="Gradient_p3erp"]
 offsets = PackedFloat32Array(0, 0.824675, 1)
 colors = PackedColorArray(1, 0.0431373, 0.301961, 1, 1, 0.192157, 0, 0.537255, 1, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_kxt27"]
-gradient = SubResource("Gradient_6tgmc")
+gradient = SubResource("Gradient_p3erp")
 width = 256
 height = 256
 fill = 1
@@ -288,11 +288,11 @@ metadata/_snap_enabled = true
 [sub_resource type="CircleShape2D" id="CircleShape2D_utkf4"]
 radius = 1.0
 
-[sub_resource type="Gradient" id="Gradient_g12of"]
+[sub_resource type="Gradient" id="Gradient_7l35c"]
 colors = PackedColorArray(0, 0, 1, 0.392157, 0, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_wxjgt"]
-gradient = SubResource("Gradient_g12of")
+gradient = SubResource("Gradient_7l35c")
 width = 40
 height = 40
 fill = 1
@@ -310,7 +310,7 @@ script = ExtResource("1_r8s47")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_oxhh7")
-animation = &"attack"
+animation = &"death"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
