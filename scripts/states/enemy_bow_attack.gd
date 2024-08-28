@@ -56,6 +56,7 @@ func Fire():
 		var original_range = arrow_instance.range
 		arrow_instance.range = range
 		arrow_instance.speed *= arrow_instance.range / original_range
+		arrow_instance.knockback_power = 0
 		add_child(arrow_instance)
 		var killzone = arrow_instance.get_node("Killzone")
 		killzone._target_only_player = true

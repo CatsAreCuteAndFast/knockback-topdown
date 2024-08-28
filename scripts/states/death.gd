@@ -11,6 +11,9 @@ func _ready() -> void:
 func Enter():
 	animated_sprite.play("death")
 	
+func Update(delta: float):
+	parent_node.velocity = Vector2.ZERO
+	
 func _on_animation_finished():
 	if animated_sprite.animation.to_lower() == "death":
 		if reset_scene:

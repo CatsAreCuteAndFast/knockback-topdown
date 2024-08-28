@@ -5,6 +5,7 @@ extends Node2D
 
 @export var speed = 100.0
 @export var range = 100.0
+@export var knockback_power = 500.0
 
 var current_scale : float
 var original_pos : Vector2
@@ -12,6 +13,8 @@ var _is_flying = true
 
 func _ready() -> void:
 	original_pos = position
+	killzone.knockback_direction = original_pos
+	killzone.knockback_power = knockback_power
 	set_as_top_level(true)
 	
 func _process(delta: float) -> void:
