@@ -40,8 +40,8 @@ func Damage(amount : int, knockback_direction = Vector2(1, 1), knockback_power =
 		
 func apply_knockback(direction: Vector2, power: float):
 	is_in_knockback = true
-	knockback_velocity = direction.normalized() * -power
-	entity.velocity -= knockback_velocity
+	var final_knockback_direction = direction - entity.global_position
+	knockback_velocity = final_knockback_direction.normalized() * -power
 	
 	# Create a tween for smooth deceleration
 	var tween = create_tween()
