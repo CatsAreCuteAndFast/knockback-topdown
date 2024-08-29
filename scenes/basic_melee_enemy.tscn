@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dda13xmgadkwr"]
+
+[ext_resource type="PackedScene" uid="uid://ixitvd27i13b" path="res://scenes/melee_enemy.tscn" id="1_ti34c"]
+
+[node name="BasicEnemy" instance=ExtResource("1_ti34c")]
+
+[node name="Shield" parent="." index="6"]
+regen_shield_timer = 0.0
+starting_with_shield = false

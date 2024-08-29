@@ -306,6 +306,7 @@ wall_min_slide_angle = 0.0
 script = ExtResource("1_sfdkj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 0, 1, 1)
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_wbkk3")
 animation = &"death"
@@ -315,17 +316,17 @@ autoplay = "idle"
 position = Vector2(0, -9)
 shape = SubResource("CircleShape2D_ggj7t")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("5_cut8t")
-initial_state = NodePath("Follow")
+initial_state = NodePath("Wander")
 
-[node name="Wander" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy")]
+[node name="Wander" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy")]
 script = ExtResource("6_cln3i")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 enemy = NodePath("../..")
 detection_radius = 120.0
 
-[node name="Follow" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy", "navigation_agent")]
+[node name="Follow" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy", "navigation_agent")]
 script = ExtResource("7_0h81d")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 enemy = NodePath("../..")
@@ -337,12 +338,12 @@ attack_radius = 60.0
 wait_time = 0.1
 autostart = true
 
-[node name="Death" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent_node", "animated_sprite")]
+[node name="Death" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("parent_node", "animated_sprite")]
 script = ExtResource("10_6v6um")
 parent_node = NodePath("../..")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "animated_sprite", "marker")]
+[node name="Attack" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("enemy", "animated_sprite", "marker")]
 script = ExtResource("10_gkfwk")
 range = 120
 time_to_reach_max = 1.0

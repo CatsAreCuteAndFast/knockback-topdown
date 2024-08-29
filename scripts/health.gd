@@ -6,8 +6,8 @@ class_name Health
 
 @export var max_health = 3
 @export var immunity_frame_duration = 0.0
+@export var shields = 0
 
-var shields = 0
 var last_hit_time : float
 var _is_dead = false
 var current_health : int

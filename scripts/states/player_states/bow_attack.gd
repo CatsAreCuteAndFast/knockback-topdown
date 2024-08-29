@@ -9,6 +9,7 @@ class_name PlayerBowAttack
 @export var time_to_reach_max = 0.8
 @export var wait_after_shot = 0.5
 @export var animated_sprite : AnimatedSprite2D
+@export var knockback_power = 100
 
 var current_time : float
 var _shot_fired = false
@@ -33,7 +34,6 @@ func Update(delta):
 	marker.look_at(mouse_pos)
 	current_time += delta
 	current_time = min(current_time, time_to_reach_max)
-	current_time /= time_to_reach_max
 	
 
 func Exit():
@@ -44,8 +44,9 @@ func Exit():
 		arrow_instance.rotation = marker.rotation
 		arrow_instance.global_position = marker.global_position
 		var original_range = arrow_instance.range
-		arrow_instance.range = lerp(minimum_range, maximum_range, current_time)
+		arrow_instance.range = lerp(minimum_range, maximum_range, current_time / time_to_reach_max)
 		arrow_instance.speed *= arrow_instance.range / original_range
+		arrow_instance.knockback_power = knockback_power
 		add_child(arrow_instance)
 		
 		var killzone = arrow_instance.get_node("Killzone")

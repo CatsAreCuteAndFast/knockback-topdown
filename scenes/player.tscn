@@ -270,31 +270,31 @@ script = ExtResource("4_2lric")
 heart_scene = ExtResource("5_1t88h")
 health_script = NodePath("../../Health")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("7_pn01r")
-initial_state = NodePath("PlayerWalk")
+initial_state = NodePath("PlayerIdle")
 
-[node name="PlayerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite")]
+[node name="PlayerIdle" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("animated_sprite")]
 script = ExtResource("8_7y0h3")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="Death" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent_node", "animated_sprite")]
+[node name="Death" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("parent_node", "animated_sprite")]
 script = ExtResource("8_uijcg")
 reset_scene = true
 parent_node = NodePath("../..")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="PlayerWalk" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite")]
+[node name="PlayerWalk" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("animated_sprite")]
 script = ExtResource("10_so1cx")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="BigBowAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("marker", "animated_sprite")]
+[node name="BigBowAttack" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("marker", "animated_sprite")]
 script = ExtResource("12_3l86e")
 marker = NodePath("../../Marker2D")
 arrow = ExtResource("13_0rxdf")
 _target_player = false
-maximum_range = 160
 animated_sprite = NodePath("../../AnimatedSprite2D")
+knockback_power = 300
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -8)

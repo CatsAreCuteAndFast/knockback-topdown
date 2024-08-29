@@ -269,17 +269,16 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_uh2c4"]
 radius = 7.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_tm8no"]
-radius = 14.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_ltw6l"]
+radius = 14.0357
 
-[sub_resource type="Gradient" id="Gradient_p3erp"]
-offsets = PackedFloat32Array(0, 0.824675, 1)
-colors = PackedColorArray(1, 0.0431373, 0.301961, 1, 1, 0.192157, 0, 0.537255, 1, 0, 0, 0)
+[sub_resource type="Gradient" id="Gradient_lnyth"]
+colors = PackedColorArray(1, 0.172549, 0, 1, 1, 0, 0, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_kxt27"]
-gradient = SubResource("Gradient_p3erp")
-width = 256
-height = 256
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_36lee"]
+gradient = SubResource("Gradient_lnyth")
+width = 45
+height = 45
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
@@ -300,7 +299,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 metadata/_snap_enabled = true
 
-[node name="MeleeEnemy" type="CharacterBody2D"]
+[node name="RegenShieldEnemy" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 2
 motion_mode = 1
@@ -310,24 +309,24 @@ script = ExtResource("1_r8s47")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_oxhh7")
-animation = &"death"
+animation = &"attack"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -8)
 shape = SubResource("CircleShape2D_uh2c4")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_rk7a8")
-initial_state = NodePath("Follow")
+initial_state = NodePath("Wander")
 
-[node name="Wander" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy")]
+[node name="Wander" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy")]
 script = ExtResource("4_pkprv")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 enemy = NodePath("../..")
 detection_radius = 100.0
 
-[node name="Follow" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy", "navigation_agent")]
+[node name="Follow" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy", "navigation_agent")]
 script = ExtResource("5_e73rp")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 enemy = NodePath("../..")
@@ -337,31 +336,31 @@ navigation_agent = NodePath("../../NavigationAgent2D")
 wait_time = 0.1
 autostart = true
 
-[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy")]
+[node name="Death" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("parent_node", "animated_sprite")]
+script = ExtResource("11_t2yfn")
+parent_node = NodePath("../..")
+animated_sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="Attack" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy")]
 script = ExtResource("6_r5j6w")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 enemy = NodePath("../..")
 
 [node name="Timer" type="Timer" parent="StateMachine/Attack"]
-wait_time = 0.3
+wait_time = 0.5
 one_shot = true
 
 [node name="Killzone" parent="StateMachine/Attack" instance=ExtResource("9_kg03p")]
 visible = false
-collision_layer = 1
+z_index = -1
+position = Vector2(43, -35)
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StateMachine/Attack/Killzone"]
-shape = SubResource("CircleShape2D_tm8no")
+shape = SubResource("CircleShape2D_ltw6l")
 
 [node name="Sprite2D" type="Sprite2D" parent="StateMachine/Attack/Killzone"]
-scale = Vector2(0.164063, 0.164063)
-texture = SubResource("GradientTexture2D_kxt27")
-
-[node name="Death" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent_node", "animated_sprite")]
-script = ExtResource("11_t2yfn")
-parent_node = NodePath("../..")
-animated_sprite = NodePath("../../AnimatedSprite2D")
+texture = SubResource("GradientTexture2D_36lee")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 radius = 134.0
@@ -373,6 +372,7 @@ position = Vector2(1, -7)
 shape = SubResource("CircleShape2D_utkf4")
 
 [node name="Health" parent="." instance=ExtResource("10_34c8u")]
+max_health = 10
 
 [node name="Shield" type="Node2D" parent="." node_paths=PackedStringArray("health_script", "shield_sprite")]
 script = ExtResource("13_jh2c2")
