@@ -355,6 +355,7 @@ visible = false
 z_index = -1
 position = Vector2(43, -35)
 monitoring = false
+shake_power = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StateMachine/Attack/Killzone"]
 shape = SubResource("CircleShape2D_ltw6l")
@@ -372,7 +373,7 @@ position = Vector2(1, -7)
 shape = SubResource("CircleShape2D_utkf4")
 
 [node name="Health" parent="." instance=ExtResource("10_34c8u")]
-max_health = 10
+max_health = 5
 
 [node name="Shield" type="Node2D" parent="." node_paths=PackedStringArray("health_script", "shield_sprite")]
 script = ExtResource("13_jh2c2")

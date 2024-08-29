@@ -295,6 +295,7 @@ arrow = ExtResource("13_0rxdf")
 _target_player = false
 animated_sprite = NodePath("../../AnimatedSprite2D")
 knockback_power = 300
+shake_power = 7.0
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -8)

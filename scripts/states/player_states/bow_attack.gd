@@ -10,6 +10,7 @@ class_name PlayerBowAttack
 @export var wait_after_shot = 0.5
 @export var animated_sprite : AnimatedSprite2D
 @export var knockback_power = 100
+@export var shake_power = 10.0
 
 var current_time : float
 var _shot_fired = false
@@ -50,6 +51,7 @@ func Exit():
 		add_child(arrow_instance)
 		
 		var killzone = arrow_instance.get_node("Killzone")
+		killzone.shake_power = shake_power
 		if _target_player:
 			killzone._target_only_player = true
 		else:

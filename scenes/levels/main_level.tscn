@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=4 uid="uid://bajd306dpxqhv"]
+[gd_scene load_steps=7 format=4 uid="uid://bajd306dpxqhv"]
 
 [ext_resource type="TileSet" uid="uid://bqr1tm8yw2p4" path="res://tilesets/dungeon_tileset.tres" id="1_p5brc"]
 [ext_resource type="PackedScene" uid="uid://bakfqh1scbfls" path="res://scenes/player.tscn" id="2_xiv20"]
 [ext_resource type="PackedScene" uid="uid://ccpdec5sxcv1j" path="res://scenes/tank_enemy.tscn" id="3_gp12p"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="3_vpeio"]
+[ext_resource type="PackedScene" uid="uid://d0wnskapewb22" path="res://scenes/ranged_enemy.tscn" id="5_dp0vd"]
+[ext_resource type="PackedScene" uid="uid://ixitvd27i13b" path="res://scenes/melee_enemy.tscn" id="6_jdvb0"]
 
 [node name="MainLevel" type="Node2D"]
 y_sort_enabled = true
@@ -18,13 +21,29 @@ tile_set = ExtResource("1_p5brc")
 [node name="Player" parent="." instance=ExtResource("2_xiv20")]
 position = Vector2(138, 11)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Camera" type="Camera2D" parent="Player" groups=["camera"]]
 position = Vector2(1, -8)
 zoom = Vector2(4, 4)
 process_callback = 0
 position_smoothing_enabled = true
+script = ExtResource("3_vpeio")
 
 [node name="Enemies" type="Node" parent="."]
 
-[node name="TankEnemy" parent="." instance=ExtResource("3_gp12p")]
+[node name="TankEnemy" parent="Enemies" instance=ExtResource("3_gp12p")]
 position = Vector2(49, -3)
+
+[node name="TankEnemy" parent="." instance=ExtResource("3_gp12p")]
+position = Vector2(63, 24)
+
+[node name="RangedEnemy" parent="." instance=ExtResource("5_dp0vd")]
+position = Vector2(217, -15)
+
+[node name="RangedEnemy2" parent="." instance=ExtResource("5_dp0vd")]
+position = Vector2(85, -8)
+
+[node name="RangedEnemy3" parent="." instance=ExtResource("5_dp0vd")]
+position = Vector2(188, 96)
+
+[node name="RegenShieldEnemy" parent="." instance=ExtResource("6_jdvb0")]
+position = Vector2(228, 23)

@@ -10,8 +10,10 @@ extends Node2D
 var current_scale : float
 var original_pos : Vector2
 var _is_flying = true
+var camera : Camera2D
 
 func _ready() -> void:
+	camera = get_tree().get_first_node_in_group("camera")
 	original_pos = position
 	killzone.knockback_direction = original_pos
 	killzone.knockback_power = knockback_power
