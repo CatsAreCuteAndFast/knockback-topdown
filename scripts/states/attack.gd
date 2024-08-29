@@ -11,7 +11,6 @@ class_name Attack
 @export var max_attack_distance := 20.0
 
 var player: Node2D
-
 var always_attack := true
 
 signal AttackFinished
@@ -37,7 +36,8 @@ func Exit():
 	timer.stop()
 
 func _on_animation_finished():
-	timer.start()
+	if animated_sprite.animation == "attack":
+		timer.start()
 
 func _on_timer_timeout() -> void:
 	AttackFinished.emit()

@@ -350,6 +350,7 @@ metadata/_snap_enabled = true
 
 [node name="TankEnemy" type="CharacterBody2D"]
 z_index = 5
+y_sort_enabled = true
 collision_layer = 2
 motion_mode = 1
 wall_min_slide_angle = 0.0

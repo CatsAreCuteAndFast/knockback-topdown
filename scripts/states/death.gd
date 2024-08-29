@@ -19,5 +19,5 @@ func _on_animation_finished():
 		if reset_scene:
 			get_tree().reload_current_scene()
 		else:
-			parent_node.queue_free()
+			parent_node.z_index = 4
 	
