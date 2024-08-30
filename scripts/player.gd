@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var state_machine: StateMachine = $StateMachine
+@onready var joystick: VirtualJoystick = $"Test/UI/Virtual joystick right"
 
 @export var speed: float = 100
 @export var accel: float = 10
@@ -20,7 +21,7 @@ func _process(_delta: float) -> void:
 		
 	if not dead:
 		speed = original_speed
-		if Input.is_action_pressed("left_click"):
+		if joystick.is_pressed:
 			state_machine.change_state("BigBowAttack")
 			speed = original_speed / 3
 		elif velocity.x != 0 or velocity.y != 0:

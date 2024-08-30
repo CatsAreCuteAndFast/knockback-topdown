@@ -11,14 +11,24 @@ config_version=5
 [application]
 
 config/name="First Project"
-run/main_scene="res://scenes/levels/main_level.tscn"
+run/main_scene="res://scenes/levels/level1.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+SceneTransition="*res://scenes/scene_transition.tscn"
+MovementControls="*res://scenes/movement_controls.tscn"
 
 [debug]
 
 gdscript/warnings/unused_parameter=0
 gdscript/warnings/unused_signal=0
+
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [dotnet]
 
@@ -61,6 +71,10 @@ left_click={
 ]
 }
 
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
 [physics]
 
 common/physics_interpolation=true
@@ -69,6 +83,7 @@ common/physics_interpolation=true
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
 anti_aliasing/screen_space_roughness_limiter/enabled=false
 environment/defaults/default_clear_color=Color(0.145098, 0.0745098, 0.101961, 1)
 anti_aliasing/physics_interpolation=true

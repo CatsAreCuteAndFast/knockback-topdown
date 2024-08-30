@@ -1,6 +1,8 @@
 extends State
 class_name PlayerBowAttack
 
+@onready var joystick: VirtualJoystick = $"../../Test/UI/Virtual joystick right"
+
 @export var marker : Marker2D
 @export var arrow : PackedScene
 @export var _target_player = true
@@ -25,20 +27,22 @@ func _on_shot_fired():
 
 func Enter():
 	animated_sprite.play("load")
+	marker.show()
 
 func Update(delta):
-	var mouse_pos = marker.get_global_mouse_position()
-	if mouse_pos.x - animated_sprite.global_position.x > 0:
+	var joystick_pos = joystick.output
+	if joystick_pos.x > 0:
 		animated_sprite.flip_h = false
 	else:
 		animated_sprite.flip_h = true
-	marker.look_at(mouse_pos)
+	marker.rotation = atan2(joystick_pos.y, joystick_pos.x)
 	current_time += delta
 	current_time = min(current_time, time_to_reach_max)
-	
+	marker.scale.x = max(current_time * 5, 0.2)
 
 func Exit():
 	if not _shot_fired:
+		marker.hide()
 		_on_shot_fired()
 		_shot_fired = true
 		var arrow_instance = arrow.instantiate()

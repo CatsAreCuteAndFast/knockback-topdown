@@ -17,7 +17,10 @@ func Update(delta: float):
 func _on_animation_finished():
 	if animated_sprite.animation.to_lower() == "death":
 		if reset_scene:
-			get_tree().reload_current_scene()
+			SceneTransition.change_scene("res://scenes/levels/level1.tscn")
 		else:
+			var parent = parent_node.get_parent()
+			parent.remove_child(parent_node)
+			parent.get_parent().add_child(parent_node)
 			parent_node.z_index = 4
 	
