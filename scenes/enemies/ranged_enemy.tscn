@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://d0wnskapewb22"]
+[gd_scene load_steps=55 format=3 uid="uid://d0wnskapewb22"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_ruxif"]
 [ext_resource type="Texture2D" uid="uid://cfay82e6dxpcq" path="res://assets/sprites/characters/Soldier/Soldier/Soldier-Death.png" id="2_f87vx"]
@@ -11,8 +11,11 @@
 [ext_resource type="Script" path="res://scripts/states/death.gd" id="9_3y82x"]
 [ext_resource type="Script" path="res://scripts/states/enemy_bow_attack.gd" id="10_nchj3"]
 [ext_resource type="PackedScene" uid="uid://dawvk43i148p3" path="res://scenes/arrow.tscn" id="11_hhfhx"]
+[ext_resource type="AudioStream" uid="uid://b1dsgc5hrtcar" path="res://assets/sfx/bow-loading-38752.mp3" id="12_o0fn2"]
 [ext_resource type="PackedScene" uid="uid://d1g84itw7cing" path="res://scenes/killzone.tscn" id="12_w07vt"]
+[ext_resource type="AudioStream" uid="uid://bivjc6uxfcygv" path="res://assets/sfx/bow-release-bow-and-arrow-4-101936.mp3" id="13_47iy5"]
 [ext_resource type="PackedScene" uid="uid://5k86ltesxpd2" path="res://scenes/health.tscn" id="13_65lut"]
+[ext_resource type="AudioStream" uid="uid://c5uqxehxi7f2p" path="res://assets/sfx/bullet-impacting-body-gamemaster-audio-2-2-00-00.mp3" id="16_5nt4s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pknpq"]
 atlas = ExtResource("2_f87vx")
@@ -343,7 +346,7 @@ script = ExtResource("9_3y82x")
 parent_node = NodePath("../..")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="Attack" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("enemy", "animated_sprite", "marker")]
+[node name="Attack" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("enemy", "animated_sprite", "marker", "load_sound", "release_sound")]
 script = ExtResource("10_nchj3")
 range = 120
 time_to_reach_max = 1.0
@@ -353,6 +356,15 @@ enemy = NodePath("../..")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 marker = NodePath("../../Marker2D")
 arrow = ExtResource("11_hhfhx")
+load_sound = NodePath("Load")
+release_sound = NodePath("Release")
+
+[node name="Load" type="AudioStreamPlayer2D" parent="StateMachine/Attack"]
+stream = ExtResource("12_o0fn2")
+
+[node name="Release" type="AudioStreamPlayer2D" parent="StateMachine/Attack"]
+position = Vector2(-25, -8)
+stream = ExtResource("13_47iy5")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 radius = 134.0
@@ -364,7 +376,13 @@ shake_power = 5.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("CircleShape2D_n06si")
 
-[node name="Health" parent="." instance=ExtResource("13_65lut")]
+[node name="Health" parent="." node_paths=PackedStringArray("on_damage_taken_sound") instance=ExtResource("13_65lut")]
+on_damage_taken_sound = NodePath("OnDamageTaken")
+
+[node name="OnDamageTaken" type="AudioStreamPlayer2D" parent="Health"]
+position = Vector2(-42, -8)
+stream = ExtResource("16_5nt4s")
+bus = &"Damage Taken"
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -8)

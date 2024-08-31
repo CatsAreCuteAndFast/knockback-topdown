@@ -9,6 +9,7 @@ class_name Attack
 @export var move_speed := 50.0
 @export var attack_cancel_radius := 30.0
 @export var max_attack_distance := 20.0
+@export var impact_sound : AudioStreamPlayer2D
 
 var player: Node2D
 var always_attack := true
@@ -76,5 +77,6 @@ func _on_frame_changed():
 			5:
 				killzone.monitoring = false
 				killzone.visible = false
+				impact_sound.play()
 			
 		

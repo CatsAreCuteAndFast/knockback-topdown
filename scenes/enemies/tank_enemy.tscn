@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://ccpdec5sxcv1j"]
+[gd_scene load_steps=63 format=3 uid="uid://ccpdec5sxcv1j"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_qxgbk"]
 [ext_resource type="Texture2D" uid="uid://db7y1cg2l6fkl" path="res://assets/sprites/characters/Goblin/PNG/spr_attack_strip10.png" id="2_atwar"]
@@ -11,8 +11,10 @@
 [ext_resource type="Script" path="res://scripts/states/death.gd" id="9_ggrmf"]
 [ext_resource type="Script" path="res://scripts/states/attack.gd" id="10_lwsei"]
 [ext_resource type="PackedScene" uid="uid://d1g84itw7cing" path="res://scenes/killzone.tscn" id="11_n4pti"]
+[ext_resource type="AudioStream" uid="uid://b5uva4xrinb5h" path="res://assets/sfx/impact-rubble-smash-betacut-1-00-01.mp3" id="12_ooq0k"]
 [ext_resource type="PackedScene" uid="uid://5k86ltesxpd2" path="res://scenes/health.tscn" id="12_tdgwd"]
 [ext_resource type="Script" path="res://scripts/shield.gd" id="13_d4pfc"]
+[ext_resource type="AudioStream" uid="uid://c5uqxehxi7f2p" path="res://assets/sfx/bullet-impacting-body-gamemaster-audio-2-2-00-00.mp3" id="14_onrua"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_87psd"]
 atlas = ExtResource("2_atwar")
@@ -392,10 +394,11 @@ script = ExtResource("9_ggrmf")
 parent_node = NodePath("../..")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="Attack" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy")]
+[node name="Attack" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy", "impact_sound")]
 script = ExtResource("10_lwsei")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 enemy = NodePath("../..")
+impact_sound = NodePath("Impact")
 
 [node name="Timer" type="Timer" parent="StateMachine/Attack"]
 wait_time = 0.5
@@ -414,6 +417,11 @@ shape = SubResource("CircleShape2D_ltw6l")
 [node name="Sprite2D" type="Sprite2D" parent="StateMachine/Attack/Killzone"]
 texture = SubResource("GradientTexture2D_36lee")
 
+[node name="Impact" type="AudioStreamPlayer2D" parent="StateMachine/Attack"]
+position = Vector2(-42, -11)
+stream = ExtResource("12_ooq0k")
+bus = &"Attack Impact"
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 radius = 134.0
 
@@ -423,8 +431,14 @@ position = Vector2(1, -7)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("CircleShape2D_utkf4")
 
-[node name="Health" parent="." instance=ExtResource("12_tdgwd")]
+[node name="Health" parent="." node_paths=PackedStringArray("on_damage_taken_sound") instance=ExtResource("12_tdgwd")]
 shields = 5
+on_damage_taken_sound = NodePath("OnDamageTaken")
+
+[node name="OnDamageTaken" type="AudioStreamPlayer2D" parent="Health"]
+position = Vector2(-42, -8)
+stream = ExtResource("14_onrua")
+bus = &"Damage Taken"
 
 [node name="Shield" type="Node2D" parent="." node_paths=PackedStringArray("health_script", "shield_sprite")]
 script = ExtResource("13_d4pfc")

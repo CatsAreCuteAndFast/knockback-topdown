@@ -9,6 +9,8 @@ class_name EnemyBowAttack
 @export var animated_sprite : AnimatedSprite2D
 @export var marker : Marker2D
 @export var arrow : PackedScene
+@export var load_sound : AudioStreamPlayer2D
+@export var release_sound : AudioStreamPlayer2D
 
 var current_time : float
 var _shot_fired = false
@@ -23,10 +25,12 @@ func _on_shot_fired():
 	current_time = 0
 	_shot_fired = false
 	if running:
+		load_sound.play()
 		animated_sprite.play("load")
 
 func Enter():
 	player = get_tree().get_first_node_in_group("player")
+	load_sound.play()
 	animated_sprite.play("load")
 	running = true
 
@@ -49,6 +53,7 @@ func Update(delta):
 func Fire():
 	if not _shot_fired:
 		_shot_fired = true
+		release_sound.play()
 		_on_shot_fired()
 		var arrow_instance = arrow.instantiate()
 		arrow_instance.rotation = marker.rotation

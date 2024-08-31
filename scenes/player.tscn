@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://bakfqh1scbfls"]
+[gd_scene load_steps=50 format=3 uid="uid://bakfqh1scbfls"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_7ktty"]
 [ext_resource type="Texture2D" uid="uid://cfay82e6dxpcq" path="res://assets/sprites/characters/Soldier/Soldier/Soldier-Death.png" id="2_kpo82"]
@@ -9,12 +9,15 @@
 [ext_resource type="PackedScene" uid="uid://5k86ltesxpd2" path="res://scenes/health.tscn" id="5_33ota"]
 [ext_resource type="Texture2D" uid="uid://p6hgw4p2j03e" path="res://assets/sprites/characters/Soldier/Soldier/Soldier-Walk.png" id="5_u1ye7"]
 [ext_resource type="Script" path="res://scripts/states/state_machine.gd" id="7_pn01r"]
+[ext_resource type="AudioStream" uid="uid://c5uqxehxi7f2p" path="res://assets/sfx/bullet-impacting-body-gamemaster-audio-2-2-00-00.mp3" id="7_s32uj"]
 [ext_resource type="Script" path="res://scripts/states/player_states/idle.gd" id="8_7y0h3"]
 [ext_resource type="Script" path="res://scripts/states/death.gd" id="8_uijcg"]
 [ext_resource type="Script" path="res://scripts/states/player_states/walk.gd" id="10_so1cx"]
 [ext_resource type="Script" path="res://scripts/states/player_states/bow_attack.gd" id="12_3l86e"]
 [ext_resource type="PackedScene" uid="uid://dawvk43i148p3" path="res://scenes/arrow.tscn" id="13_0rxdf"]
+[ext_resource type="AudioStream" uid="uid://b1dsgc5hrtcar" path="res://assets/sfx/bow-loading-38752.mp3" id="15_7k2ro"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="15_gtaee"]
+[ext_resource type="AudioStream" uid="uid://bivjc6uxfcygv" path="res://assets/sfx/bow-release-bow-and-arrow-4-101936.mp3" id="16_2c6i3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pknpq"]
 atlas = ExtResource("2_kpo82")
@@ -265,8 +268,14 @@ z_index = 5
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_bdbdw")
 
-[node name="Health" parent="." instance=ExtResource("5_33ota")]
+[node name="Health" parent="." node_paths=PackedStringArray("on_damage_taken_sound") instance=ExtResource("5_33ota")]
 immunity_frame_duration = 1.0
+on_damage_taken_sound = NodePath("OnDamageTaken")
+
+[node name="OnDamageTaken" type="AudioStreamPlayer2D" parent="Health"]
+position = Vector2(-42, -8)
+stream = ExtResource("7_s32uj")
+bus = &"Damage Taken"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -297,7 +306,7 @@ animated_sprite = NodePath("../../AnimatedSprite2D")
 script = ExtResource("10_so1cx")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="BigBowAttack" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("marker", "animated_sprite")]
+[node name="BigBowAttack" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("marker", "animated_sprite", "load_sound", "release_sound")]
 script = ExtResource("12_3l86e")
 marker = NodePath("../../Marker2D")
 arrow = ExtResource("13_0rxdf")
@@ -305,6 +314,15 @@ _target_player = false
 animated_sprite = NodePath("../../AnimatedSprite2D")
 knockback_power = 300
 shake_power = 7.0
+load_sound = NodePath("Load")
+release_sound = NodePath("Release")
+
+[node name="Load" type="AudioStreamPlayer2D" parent="StateMachine/BigBowAttack"]
+stream = ExtResource("15_7k2ro")
+
+[node name="Release" type="AudioStreamPlayer2D" parent="StateMachine/BigBowAttack"]
+position = Vector2(-25, -8)
+stream = ExtResource("16_2c6i3")
 
 [node name="Test" type="Node2D" parent="."]
 
@@ -323,6 +341,7 @@ joystick_mode = 1
 use_input_actions = false
 
 [node name="Marker2D" type="Marker2D" parent="."]
+visible = false
 position = Vector2(0, -8)
 rotation = -1.57079
 

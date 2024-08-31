@@ -7,6 +7,7 @@ class_name Health
 @export var max_health = 3
 @export var immunity_frame_duration = 0.0
 @export var shields = 0
+@export var on_damage_taken_sound : AudioStreamPlayer2D
 
 var last_hit_time : float
 var _is_dead = false
@@ -27,6 +28,7 @@ func _physics_process(delta):
 	
 func Damage(amount : int, knockback_direction = Vector2(1, 1), knockback_power = 0):
 	var current_time = Time.get_ticks_msec() / 1000.0
+	on_damage_taken_sound.play()
 	if current_time - last_hit_time > immunity_frame_duration and not _is_dead:
 		last_hit_time = current_time
 		if shields > 0:

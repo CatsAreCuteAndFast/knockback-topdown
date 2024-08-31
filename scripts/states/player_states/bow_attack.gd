@@ -13,6 +13,8 @@ class_name PlayerBowAttack
 @export var animated_sprite : AnimatedSprite2D
 @export var knockback_power = 100
 @export var shake_power = 10.0
+@export var load_sound : AudioStreamPlayer2D
+@export var release_sound : AudioStreamPlayer2D
 
 var current_time : float
 var _shot_fired = false
@@ -28,6 +30,7 @@ func _on_shot_fired():
 func Enter():
 	animated_sprite.play("load")
 	marker.show()
+	load_sound.play()
 
 func Update(delta):
 	var joystick_pos = joystick.output
@@ -42,6 +45,7 @@ func Update(delta):
 
 func Exit():
 	if not _shot_fired:
+		release_sound.play()
 		marker.hide()
 		_on_shot_fired()
 		_shot_fired = true

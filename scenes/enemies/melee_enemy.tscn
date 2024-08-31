@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://ixitvd27i13b"]
+[gd_scene load_steps=56 format=3 uid="uid://ixitvd27i13b"]
 
 [ext_resource type="Texture2D" uid="uid://ctfkcrd6lryrp" path="res://assets/sprites/characters/Orc/Orc/Orc-Idle.png" id="1_4tke4"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_r8s47"]
@@ -12,7 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://d1g84itw7cing" path="res://scenes/killzone.tscn" id="9_kg03p"]
 [ext_resource type="PackedScene" uid="uid://5k86ltesxpd2" path="res://scenes/health.tscn" id="10_34c8u"]
 [ext_resource type="Script" path="res://scripts/states/death.gd" id="11_t2yfn"]
+[ext_resource type="AudioStream" uid="uid://b5uva4xrinb5h" path="res://assets/sfx/impact-rubble-smash-betacut-1-00-01.mp3" id="12_mwfh8"]
 [ext_resource type="Script" path="res://scripts/shield.gd" id="13_jh2c2"]
+[ext_resource type="AudioStream" uid="uid://c5uqxehxi7f2p" path="res://assets/sfx/bullet-impacting-body-gamemaster-audio-2-2-00-00.mp3" id="14_oguym"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ja8k4"]
 atlas = ExtResource("2_hplfa")
@@ -342,10 +344,11 @@ script = ExtResource("11_t2yfn")
 parent_node = NodePath("../..")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="Attack" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy")]
+[node name="Attack" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "enemy", "impact_sound")]
 script = ExtResource("6_r5j6w")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 enemy = NodePath("../..")
+impact_sound = NodePath("Impact-rubble-smash-betacut-1-00-01")
 
 [node name="Timer" type="Timer" parent="StateMachine/Attack"]
 wait_time = 0.5
@@ -364,6 +367,11 @@ shape = SubResource("CircleShape2D_ltw6l")
 [node name="Sprite2D" type="Sprite2D" parent="StateMachine/Attack/Killzone"]
 texture = SubResource("GradientTexture2D_36lee")
 
+[node name="Impact-rubble-smash-betacut-1-00-01" type="AudioStreamPlayer2D" parent="StateMachine/Attack"]
+position = Vector2(-35, 6)
+stream = ExtResource("12_mwfh8")
+bus = &"Attack Impact"
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 radius = 134.0
 
@@ -373,8 +381,14 @@ position = Vector2(1, -7)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("CircleShape2D_utkf4")
 
-[node name="Health" parent="." instance=ExtResource("10_34c8u")]
+[node name="Health" parent="." node_paths=PackedStringArray("on_damage_taken_sound") instance=ExtResource("10_34c8u")]
 max_health = 5
+on_damage_taken_sound = NodePath("OnDamageTaken")
+
+[node name="OnDamageTaken" type="AudioStreamPlayer2D" parent="Health"]
+position = Vector2(-42, -8)
+stream = ExtResource("14_oguym")
+bus = &"Damage Taken"
 
 [node name="Shield" type="Node2D" parent="." node_paths=PackedStringArray("health_script", "shield_sprite")]
 script = ExtResource("13_jh2c2")
